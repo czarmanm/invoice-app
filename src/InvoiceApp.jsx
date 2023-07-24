@@ -17,6 +17,41 @@ export const InvoiceApp = () => {
 
     const [counter, setCounter] = useState(4);
 
+    const onProductChange = ({target}) => {
+        console.log(target.value);
+        setProductValue(target.value);
+    };
+
+    const onPriceChange = ({target}) => {
+        console.log(target.value);
+        setPriceValue(target.value);
+    }
+
+    const onQuantiityChange = ({target}) => {
+        console.log(target.value);
+        setQuantityValue(target.value);
+    }
+
+    const onInvoiceSubmit = (event) => {
+        event.preventDefault();
+
+        if (productValue.trim() <= 1)  return;
+        if (isNaN(priceValue) || priceValue.trim() <= 1)  return;
+        if (isNaN(quantityValue) || quantityValue.trim() < 1)  return;
+
+        setItems([...items, 
+            {
+                id:counter, 
+                product: productValue.trim(), 
+                price: parseInt(priceValue.trim()),
+                quantity: parseInt(quantityValue.trim(),10)
+            }]);
+        setProductValue('');
+        setPriceValue('');
+        setQuantityValue('');
+        setCounter(counter + 1);
+    }
+
     return (
         <>
             <div className="container">
@@ -39,37 +74,28 @@ export const InvoiceApp = () => {
 
                         <TableItemsView title="Invoice Products" items={ items }/>
                         <TotalView total={ total }/>
-                        <form className="w-50" onSubmit={event => {
-                            event.preventDefault();
-
-                            if (productValue.trim() <= 1)  return;
-                            if (priceValue.trim() <= 1)  return;
-                            if (quantityValue.trim() < 1)  return;
-
-                            setItems([...items, 
-                                {
-                                    id:counter, 
-                                    product: productValue, 
-                                    price: parseInt(priceValue),
-                                    quantity: parseInt(quantityValue,10)
-                                }]);
-                            setProductValue('');
-                            setPriceValue('');
-                            setQuantityValue('');
-                            setCounter(counter + 1);
-                        }}>
-                            <input type="text" name="product" value={productValue} placeholder="Product" className="form-control m-3" onChange={event => {
-                                console.log(event.target.value);
-                                setProductValue(event.target.value);
-                            }} />
-                            <input type="text" name="price" value={priceValue} placeholder="Price" className="form-control m-3" onChange={event => {
-                                console.log(event.target.value);
-                                setPriceValue(event.target.value);
-                            }} />
-                            <input type="text" name="quantity" value={quantityValue} placeholder="Quantity" className="form-control m-3" onChange={event => {
-                                console.log(event.target.value);
-                                setQuantityValue(event.target.value);
-                            }} />
+                        <form className="w-50" onSubmit={event => onInvoiceSubmit(event)}>
+                            <input 
+                                type="text" 
+                                name="product" 
+                                value={productValue} 
+                                placeholder="Product" 
+                                className="form-control m-3" 
+                                onChange={onProductChange} />
+                            <input 
+                                type="text" 
+                                name="price" 
+                                value={priceValue} 
+                                placeholder="Price" 
+                                className="form-control m-3" 
+                                onChange={onPriceChange} />
+                            <input 
+                                type="text" 
+                                name="quantity" 
+                                value={quantityValue} 
+                                placeholder="Quantity" 
+                                className="form-control m-3" 
+                                onChange={onQuantiityChange} />
 
                             <button 
                                 type="submit" 
