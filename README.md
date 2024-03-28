@@ -8,5 +8,5 @@ This application will be later connected to a Spring backend application.
 ![Vite](https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E)
 
 # See also
-This PoC was created using ![Vite Frontend Tooling](https://vitejs.dev/).\
-Example taken from this ![Udemy course](https://www.udemy.com/course/react-spring-creando-webapp-full-stack/).
+This PoC was created using [Vite Frontend Tooling](https://vitejs.dev/).\
+Example taken from this [Udemy course](https://www.udemy.com/course/react-spring-creando-webapp-full-stack/).
